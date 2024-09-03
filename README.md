@@ -1,6 +1,11 @@
 Project name : intervew saathi
 
-Technologies used : next js, tailwind , shadcn , hyperUI
+Project workflow : https://app.eraser.io/workspace/b6m6A2o4Ai57jfV5Ivjf?origin=share
+
+Technologies used : 
+Frontend : next js, tailwind , shadcn , hyperUI
+Backend : postgres sql , Drizzel ORM ( Neon Database )
+
 
 TODO:
 
