@@ -13,23 +13,54 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { chatSession } from '@/utils/GeminiAiModal'
-
+import { LoaderCircle } from 'lucide-react'
+import { db } from '@/utils/db'
+import { MockInterview } from '@/utils/schema'
+import { v4 as uuidv4 } from 'uuid'
+import { useUser } from '@clerk/nextjs'
+import moment from 'moment'
+import { useRouter } from 'next/navigation'
 
 const AddNewInterview = () => {
     const [openDialog, setOpenDialog] = useState(false)
     const [jobPosition, setJobPosition] = useState("")
     const [jobDesc, setJobDesc] = useState("")
     const [jobExperience, setJobExperience] = useState(0)
+    const [loading, setLoading] = useState(false)
+    const [jsonResponse, setJsonResponse] = useState([])
+    const { user } = useUser()
+    const router = useRouter()
 
     const onSubmit = async (e) => {
         e.preventDefault()
-
+        setLoading(true)
         const InputPrompt = "Job Position : " + jobPosition + " , Job description : " + jobDesc + " , Years of expeience : " + jobExperience + ", Depending on this information please give me 5 interivew questions with answers in json format. Give questions and answers as feilds in json"
 
         const result = await chatSession.sendMessage(InputPrompt)
+        const MockJSonReponse = (result.response.text()).replace("```json", '').replace('```', '')
+        setJsonResponse(MockJSonReponse)
 
-        console.log(result.response.text())
-        // 1:26:24
+        if (MockJSonReponse) {
+            const resp = await db.insert(MockInterview).values({
+                mockId: uuidv4(),
+                jsonMockResp: MockJSonReponse,
+                jobPosition: jobPosition,
+                jobDesc: jobDesc,
+                jobExperience: jobExperience,
+                createdBy: user.primaryEmailAddress.emailAddress,
+                createdAt: moment().format("DD-MM-YYYY")
+            }).returning({ mockId: MockInterview.mockId })
+
+            if (resp) {
+                setOpenDialog(false)
+                router.push(`/dashboard/interview/${resp[0]?.mockId}`)
+            }
+        }
+
+
+
+        setLoading(false)
+
     }
 
     return (
@@ -75,7 +106,19 @@ const AddNewInterview = () => {
                                         onClick={() => setOpenDialog(false)}
                                     >Cancel</Button>
 
-                                    <Button type="submit">Start Interview</Button>
+                                    <Button type="submit"
+                                        disabled={loading}
+                                    >
+                                        {
+                                            (loading) ?
+                                                <>
+                                                    <LoaderCircle className='animate-spin mr-2' />
+                                                    Generating questions
+                                                </>
+                                                :
+                                                "Start Interview"
+                                        }
+                                    </Button>
 
                                 </div>
                             </form>
