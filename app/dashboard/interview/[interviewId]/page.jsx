@@ -1,12 +1,13 @@
 "use client"
 
 import { Button } from '@/components/ui/button'
-import { db } from '@/utils/db'
-import { MockInterview } from '@/utils/schema'
+import { db } from '../../../../utils/db'
+import { MockInterview } from '../../../../utils/schema'
 import { eq } from 'drizzle-orm'
 import { Lightbulb, WebcamIcon } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Webcam from 'react-webcam'
+import Link from 'next/link'
 
 const Interview = ({ params }) => {
 
@@ -73,7 +74,9 @@ const Interview = ({ params }) => {
             </div>
 
             <div className='flex justify-end items-end'>
-                <Button>Start Interview</Button>
+                <Link href={'/dashboard/interview/' + params.interviewId + "/start"}>
+                    <Button>Start Interview</Button>
+                </Link>
             </div>
         </div>
     )
