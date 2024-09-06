@@ -6,6 +6,8 @@ import { db } from 'utils/db'
 import { MockInterview } from 'utils/schema'
 import QuestionSection from './_components/QuestionSection'
 import RecordAnsSection from './_components/RecordAnsSection'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
 const StartInterview = ({ params }) => {
 
@@ -27,19 +29,52 @@ const StartInterview = ({ params }) => {
     }, [])
 
     return (
-        <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
+        <>
+            <div className='grid grid-cols-1 md:grid-cols-2 gap-10'>
 
-            {/* questions */}
+                {/* questions */}
 
-            <QuestionSection
-                mockInterviewQuestion={mockInterviewQuestion}
-                activeQuestionIndex={activeQuestionIndex}
-            />
+                <QuestionSection
+                    mockInterviewQuestion={mockInterviewQuestion}
+                    activeQuestionIndex={activeQuestionIndex}
+                />
 
-            {/* video / audio recording */}
+                {/* video / audio recording */}
 
-            <RecordAnsSection />
-        </div>
+                <RecordAnsSection
+                    mockInterviewQuestion={mockInterviewQuestion}
+                    activeQuestionIndex={activeQuestionIndex}
+                    interviewData={interviewData}
+                />
+            </div>
+
+            <div className='flex justify-end gap-6'>
+
+                {
+                    activeQuestionIndex > 0 && (
+                        <Button
+                            onClick={() => setActiveActiveQuestionIndex(activeQuestionIndex - 1)}
+                        >Previous Question</Button>
+                    )
+                }
+
+                {
+                    activeQuestionIndex !== mockInterviewQuestion?.length - 1 && (
+                        <Button
+                            onClick={() => setActiveActiveQuestionIndex(activeQuestionIndex + 1)}
+                        >Next Question</Button>
+                    )
+                }
+
+                {
+                    activeQuestionIndex == mockInterviewQuestion?.length - 1 && (
+                        <Link href={'/dashboard/interview/' + interviewData?.mockId + "/feedback"}>
+                            <Button>End Interview</Button>
+                        </Link>
+                    )
+                }
+            </div>
+        </>
     )
 }
 

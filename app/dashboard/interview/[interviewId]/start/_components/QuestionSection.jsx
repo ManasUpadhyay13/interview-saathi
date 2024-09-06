@@ -19,7 +19,7 @@ const QuestionSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
                     <h2
                         key={idx}
                         className={`p-2 bg-secondary rounded-full text-xs md:text-sm text-center cursor-pointer 
-                            ${activeQuestionIndex === idx ? 'bg-[#3D3BCA] text-white' : ''}`}>
+                            ${activeQuestionIndex === idx ? 'bg-[#161557] text-white' : ''}`}>
                         Question #{idx + 1}
                     </h2>
                 ))}
