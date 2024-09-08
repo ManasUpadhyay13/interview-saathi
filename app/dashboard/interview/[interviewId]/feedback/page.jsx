@@ -1,17 +1,17 @@
 "use client"
 
 import { eq } from 'drizzle-orm'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { db } from 'utils/db'
 import { UserAnswer } from 'utils/schema'
 
 const Feedback = ({ params }) => {
 
+    const [ feedbackList , setFeedBackList] = useState([])
+
     const getFeedback = async () => {
         const result = await db.select().from(UserAnswer).where(eq(UserAnswer.mockIdRef, params.intervewId)).orderBy(UserAnswer.id)
-
-        console.log(result);
-
+        setFeedBackList(result)
     }
 
 
