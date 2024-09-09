@@ -6,6 +6,7 @@ import { Mic, WebcamIcon } from 'lucide-react'
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 import useSpeechToText from 'react-hook-speech-to-text'
+import toast from 'react-hot-toast'
 import Webcam from 'react-webcam'
 import { db } from 'utils/db'
 import { chatSession } from 'utils/GeminiAiModal'
@@ -55,7 +56,7 @@ const RecordAnsSection = ({ mockInterviewQuestion, activeQuestionIndex, intervie
                 mockIdRef: interviewData?.mockId,
                 question: mockInterviewQuestion[activeQuestionIndex]?.question,
                 correctAns: mockInterviewQuestion[activeQuestionIndex]?.answer,
-                userAnswer: userAnswer,
+                userAns: userAnswer,
                 feedback: jsonFeedbackResponse?.feedback,
                 rating: jsonFeedbackResponse?.rating,
                 userEmail: user?.primaryEmailAddress?.emailAddress,
@@ -63,7 +64,9 @@ const RecordAnsSection = ({ mockInterviewQuestion, activeQuestionIndex, intervie
             })
 
         if (resp) {
-            alert("User answer recorded success")
+            console.log('success')
+            toast.success("User answer recorded success")
+            // alert()
             setResults([])
         }
         setResults([])

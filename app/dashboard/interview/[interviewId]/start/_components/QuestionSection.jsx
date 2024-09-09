@@ -1,5 +1,6 @@
 import { Lightbulb, Volume2 } from 'lucide-react'
 import React, { act } from 'react'
+import toast from 'react-hot-toast'
 
 const QuestionSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
 
@@ -8,7 +9,8 @@ const QuestionSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
             const speech = new SpeechSynthesisUtterance(text)
             window.speechSynthesis.speak(speech)
         } else {
-            alert("Sorry, Your browser does not support to text to speech")
+            toast.error("Sorry, Your browser does not support to text to speech")
+            // alert("")
         }
     }
 
