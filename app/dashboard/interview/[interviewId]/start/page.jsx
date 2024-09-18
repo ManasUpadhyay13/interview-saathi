@@ -17,7 +17,7 @@ const StartInterview = ({ params }) => {
 
     const getInterviewDetails = async () => {
         const result = await db.select().from(MockInterview).where(eq(MockInterview.mockId, params.interviewId))
-        console.log(result);
+        console.log(result[0].jsonMockResp);
 
         const jsonMockResponse = JSON.parse(result[0].jsonMockResp)
         setMockInterviewQuestion(jsonMockResponse)

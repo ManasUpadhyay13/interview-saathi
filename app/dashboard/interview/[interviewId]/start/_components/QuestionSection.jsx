@@ -21,7 +21,7 @@ const QuestionSection = ({ mockInterviewQuestion, activeQuestionIndex }) => {
                     <h2
                         key={idx}
                         className={`p-2 bg-secondary rounded-full text-xs md:text-sm text-center cursor-pointer 
-                            ${activeQuestionIndex === idx ? 'bg-[#161557] text-white' : ''}`}>
+                            ${activeQuestionIndex === idx ? 'bg-[#1f1e5c] text-white' : ''}`}>
                         Question #{idx + 1}
                     </h2>
                 ))}

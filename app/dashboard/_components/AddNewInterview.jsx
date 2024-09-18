@@ -34,7 +34,7 @@ const AddNewInterview = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         setLoading(true)
-        const InputPrompt = "Job Position : " + jobPosition + " , Job description : " + jobDesc + " , Years of expeience : " + jobExperience + ", Depending on this information please give me 5 interivew questions with answers in json format. Give questions and answers as feilds in json"
+        const InputPrompt = "Job Position : " + jobPosition + " , Job description : " + jobDesc + " , Years of expeience : " + jobExperience + ", Depending on this information please give me 5 interivew questions with answers in json format. Give questions and answers as feilds in json. Dont give me any explanations just the questions and answers in json format."
 
         const result = await chatSession.sendMessage(InputPrompt)
         const MockJSonReponse = (result.response.text()).replace("```json", '').replace('```', '')
