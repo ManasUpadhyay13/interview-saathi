@@ -6,7 +6,3 @@ Technologies used :
 Frontend : next js, tailwind , shadcn , hyperUI
 Backend : postgres sql , Drizzel ORM ( Neon Database )
 Webcam : react webcam
-
-TODO:
-
-Change the sign up and the sign in page with clerk elements
