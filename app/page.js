@@ -1,20 +1,14 @@
-"use client"
+'use client'
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import Hero from '../components/Home/Hero'
+import Testimonials from '../components/Home/Testimonial'
+import Usage from '../components/Home/Usage'
 
 export default function Home() {
-
-  const router = useRouter()
-
-  useEffect(() => {
-    router.push("/dashboard")
-  }, [])
-
   return (
-    <>
-
-    </>
+    <div className="max-w-[1280px] mx-auto">
+      <Hero />
+      <Usage />
+    </div>
   );
 }
